@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        //折半查找变型题，以left元素进行比较，判断mid是在左部分还是右部分
+        int left=0,right=nums.size()-1;
+        while(left<right)
+        {
+            if(nums[left]<nums[right])return nums[left];
+            int mid=(left+right+1)/2;//+1是为了当left和right相邻时，mid落在right上
+            if(nums[left]>=nums[mid])
+            {
+                right=mid;//right可能包含mid
+                left++;//left必然在原来的left基础上右移一步的，以[2,1]为例
+            }else if(nums[left]<nums[mid])
+            {
+                left=mid+1;
+            }
+        }
+        return nums[right];
+    }
+};
