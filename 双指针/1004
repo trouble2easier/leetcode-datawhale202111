@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        //=>滑动窗口内的0个数不超过k的子数组最大元素个数
+        int i=0,j=0,n=nums.size(),nt=0,maxN=0;
+        while(j<n)
+        {   
+            if(nums[j]==0)
+            {
+                nt++;
+            }
+             while(nt>k)
+            {
+                if(nums[i]==0)
+                {
+                    nt--;
+                }
+                i++;
+            }
+           if(maxN<(j-i)+1){maxN=(j-i)+1;}
+            
+            j++;
+
+        }
+        return maxN;
+
+    }
+};
