@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        vector<vector<int>>res;
+        if(nums.empty()||nums.size()<3)return res;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        for(int i=0;i<n-2;i++)
+        {
+            if(i>=1&&nums[i]==nums[i-1]) //如果第一个元素有重复元素跳过
+            continue;
+            int j=i+1;
+            int k=n-1;
+            int target=0-nums[i];
+            while(j<k&&j>i&&k<n)
+            {
+                if(nums[j]+nums[k]>target)
+                {
+                    k--;
+
+                }else if(nums[j]+nums[k]<target)
+                {
+                    j++;
+                }else{
+                    //如果第二个或者第三个有重复元素，跳过
+                    res.push_back({nums[i],nums[j],nums[k]});
+                    while(j+1<k&&nums[j]==nums[j+1])
+                    {
+                            j++;
+                    }
+                    while(k>j+1&&nums[k]==nums[k-1])
+                    {
+                        k--;
+                    }
+                    j++;k--;
+                }
+            }
+        }
+        return res;
+        
+    }
+};
