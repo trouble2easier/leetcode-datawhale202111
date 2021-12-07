@@ -1,0 +1,62 @@
+class Solution {
+public:
+    vector<int>tmp;
+    vector<int> sortArray(vector<int>& nums) {
+        //快排，合并排序都超时，很慢
+        int n=nums.size();
+        
+        //q_sort(nums,0,nums.size()-1);
+        mergeSort(nums,0,n-1);
+        return nums;
+    }
+    void mergeSort(vector<int>&s,int l,int r)
+    {
+        if(l<r)
+        {
+            int mid=l+((r-l)>>1);
+            mergeSort(s,l,mid);
+            mergeSort(s,mid+1,r);
+            merge(s,l,mid,r);
+        }
+    }
+    void merge(vector<int>&s,int l,int m,int r)
+    {
+       tmp=s;
+        int j=r,mid=m+1+((r-m-1)>>1);
+        for(int i=m+1;i<=mid;i++)
+        swap(tmp[i],tmp[j--]);
+        j=l;
+        while(l<=r)
+        {
+            if(tmp[l]<=tmp[r])s[j++]=tmp[l++];
+            else s[j++]=tmp[r--];
+        }
+    }
+    void q_sort(vector<int>&s,int l,int r)
+    {
+        if(l<r){
+            int pos;
+            pos=part(s,l,r);
+            q_sort(s,l,pos);
+            q_sort(s,pos+1,r);
+        }
+    }
+    int part(vector<int>&s,int l,int r)
+    {
+        int v=s[l];
+        int j=l;
+        for(int i=l+1;i<=r;i++)
+        {
+            if(s[i]<v)
+            {
+                j++;
+                if(i!=j)
+                {
+                    swap(s[i],s[j]);
+                }
+            }
+        }
+    s[l]=s[j];s[j]=v;
+    return j;
+    }
+};
